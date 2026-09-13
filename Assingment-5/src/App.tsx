@@ -5,6 +5,8 @@ import Hero from "./components/Hero";
 import TechnologyCard from "./components/TechnologyCard";
 import YourStack from "./components/YourStack";
 import Footer from "./components/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export interface Technology {
   id: string;
@@ -22,30 +24,52 @@ function App() {
     []
   );
 
-  const [stack, setStack] = useState<Technology[]>([]);
-
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const handleAddToStack = (technology: Technology) => {
+const handleAddToStack = (technology: Technology) => {
   const alreadyAdded = stack.some(
     (item) => item.id === technology.id
   );
 
   if (alreadyAdded) {
+    toast.warning(
+      `${technology.name} is already in your stack!`
+    );
     return;
   }
 
   setStack([...stack, technology]);
-};
 
-const handleRemoveFromStack = (id: string) => {
-  setStack(
-    stack.filter((item) => item.id !== id)
+  toast.success(
+    `${technology.name} added to your stack!`
   );
 };
 
+const handleRemoveFromStack = (id: string) => {
+  const technology = stack.find(
+    (item) => item.id === id
+  );
+
+  setStack(
+    stack.filter((item) => item.id !== id)
+  );
+
+  if (technology) {
+    toast.info(
+      `${technology.name} removed from your stack.`
+    );
+  }
+};
+
 const handleRemoveAll = () => {
+  if (stack.length === 0) {
+    toast.warning("Your stack is already empty.");
+    return;
+  }
+
   setStack([]);
+
+  toast.info(
+    "All technologies removed from your stack."
+  );
 };
 
   useEffect(() => {
@@ -104,6 +128,8 @@ const handleRemoveAll = () => {
       </main>
 
       <Footer />
+
+      <ToastContainer />
     </>
   );
 }
