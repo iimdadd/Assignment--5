@@ -2,10 +2,14 @@ import type { Technology } from "../App";
 
 interface TechnologyCardProps {
   technology: Technology;
+  onAdd: (technology: Technology) => void;
+  isAdded: boolean;
 }
 
 function TechnologyCard({
   technology,
+  onAdd,
+  isAdded,
 }: TechnologyCardProps) {
   return (
     <div className="technology-card">
@@ -42,8 +46,12 @@ function TechnologyCard({
         <span>{technology.rating}</span>
       </div>
 
-      <button className="add-stack-button">
-        Add to Stack
+      <button
+        className="add-stack-button"
+        onClick={() => onAdd(technology)}
+        disabled={isAdded}
+      >
+        {isAdded ? "✓ Added to Stack" : "Add to Stack"}
       </button>
     </div>
   );

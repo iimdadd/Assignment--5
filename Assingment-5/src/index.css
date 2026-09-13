@@ -463,3 +463,36 @@ body {
   font-size: 11px;
   color: #888888;
 }
+
+.remove-button {
+  border: none;
+  background: none;
+  color: #999999;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  color: #ef4444;
+}
+
+.remove-all-button {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ef4444;
+  border-radius: 10px;
+  background: white;
+  color: #ef4444;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove-all-button:hover {
+  background: #fef2f2;
+}
+
+.add-stack-button:disabled {
+  border-color: #dddddd;
+  background: #f5f5f5;
+  color: #999999;
+  cursor: not-allowed;
+}

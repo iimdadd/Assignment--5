@@ -26,6 +26,28 @@ function App() {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  const handleAddToStack = (technology: Technology) => {
+  const alreadyAdded = stack.some(
+    (item) => item.id === technology.id
+  );
+
+  if (alreadyAdded) {
+    return;
+  }
+
+  setStack([...stack, technology]);
+};
+
+const handleRemoveFromStack = (id: string) => {
+  setStack(
+    stack.filter((item) => item.id !== id)
+  );
+};
+
+const handleRemoveAll = () => {
+  setStack([]);
+};
+
   useEffect(() => {
     fetch("/technologies.json")
       .then((response) => response.json())
