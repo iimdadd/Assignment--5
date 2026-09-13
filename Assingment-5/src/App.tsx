@@ -1,22 +1,78 @@
+import { useEffect, useState } from "react";
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TechnologyCard from "./components/TechnologyCard";
 import YourStack from "./components/YourStack";
 import Footer from "./components/Footer";
 
+export interface Technology {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  icon: string;
+  rating: number;
+  difficulty: string;
+  badge: string;
+}
+
 function App() {
+  const [technologies, setTechnologies] = useState<Technology[]>(
+    []
+  );
+
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    fetch("/technologies.json")
+      .then((response) => response.json())
+      .then((data: Technology[]) => {
+        setTechnologies(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("Error loading technologies:", error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <Navbar />
+
       <main>
         <Hero />
 
-        <section id="technologies">
-          <h2>Technologies</h2>
-        </section>
+        <section
+          className="technologies-section"
+          id="technologies"
+        >
+          <div className="section-heading">
+            <p>EXPLORE</p>
 
-        <TechnologyCard />
-        <YourStack />
+            <h2>Technologies</h2>
+
+            <span>
+              Explore the technologies used by modern developers.
+            </span>
+          </div>
+
+          {loading ? (
+            <p className="loading-message">
+              Loading technologies...
+            </p>
+          ) : (
+            <div className="technology-grid">
+              {technologies.map((technology) => (
+                <TechnologyCard
+                  key={technology.id}
+                  technology={technology}
+                />
+              ))}
+            </div>
+          )}
+        </section>
       </main>
 
       <Footer />
