@@ -1,32 +1,48 @@
-# React + TypeScript + Vite
+# Dev Stack
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Dev Stack is a React and TypeScript web application that helps developers explore modern technologies and create their own technology stack.
 
-Currently, two official plugins are available:
+## Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- TypeScript
+- Vite
+- CSS
+- JSON
+- React Toastify
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Explore modern technologies
+2. Add and remove technologies from your stack
+3. Responsive design for desktop, tablet, and mobile
 
-## Expanding the Oxlint configuration
+## React Questions & Answers
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### 1. What is React?
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+React is a JavaScript library for building user interfaces.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### 2. What is a component?
+
+A component is a reusable part of a React application.
+
+### 3. What are props?
+
+Props are used to send data from one component to another.
+
+### 4. What is state?
+
+State is data that can change inside a React component.
+
+### 5. What is useState?
+
+useState is a React Hook used to create and manage state.
+
+### 6. What is useEffect?
+
+useEffect is used to perform side effects such as fetching data.
+
+### 7. What is JSX?
+
+JSX allows us to write HTML-like syntax inside JavaScript or TypeScript.
