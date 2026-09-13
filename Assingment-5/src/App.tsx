@@ -22,6 +22,8 @@ function App() {
     []
   );
 
+  const [stack, setStack] = useState<Technology[]>([]);
+
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -63,13 +65,17 @@ function App() {
               Loading technologies...
             </p>
           ) : (
-            <div className="technology-grid">
-              {technologies.map((technology) => (
-                <TechnologyCard
-                  key={technology.id}
-                  technology={technology}
-                />
-              ))}
+            <div className="technology-layout">
+              <div className="technology-grid">
+                {technologies.map((technology) => (
+                  <TechnologyCard
+                    key={technology.id}
+                    technology={technology}
+                  />
+                ))}
+              </div>
+
+              <YourStack stack={stack} />
             </div>
           )}
         </section>
