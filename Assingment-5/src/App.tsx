@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TechnologyCard from "./components/TechnologyCard";
@@ -20,57 +19,49 @@ export interface Technology {
 }
 
 function App() {
-  const [technologies, setTechnologies] = useState<Technology[]>(
-    []
-  );
+  const [technologies, setTechnologies] = useState<Technology[]>([]);
+  const [stack, setStack] = useState<Technology[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const handleAddToStack = (technology: Technology) => {
-  const alreadyAdded = stack.some(
-    (item) => item.id === technology.id
-  );
-
-  if (alreadyAdded) {
-    toast.warning(
-      `${technology.name} is already in your stack!`
+  const handleAddToStack = (technology: Technology) => {
+    const alreadyAdded = stack.some(
+      (item) => item.id === technology.id
     );
-    return;
-  }
 
-  setStack([...stack, technology]);
+    if (alreadyAdded) {
+      toast.warning(`${technology.name} is already in your stack!`);
+      return;
+    }
 
-  toast.success(
-    `${technology.name} added to your stack!`
-  );
-};
+    setStack([...stack, technology]);
 
-const handleRemoveFromStack = (id: string) => {
-  const technology = stack.find(
-    (item) => item.id === id
-  );
+    toast.success(`${technology.name} added to your stack!`);
+  };
 
-  setStack(
-    stack.filter((item) => item.id !== id)
-  );
-
-  if (technology) {
-    toast.info(
-      `${technology.name} removed from your stack.`
+  const handleRemoveFromStack = (id: string) => {
+    const technology = stack.find(
+      (item) => item.id === id
     );
-  }
-};
 
-const handleRemoveAll = () => {
-  if (stack.length === 0) {
-    toast.warning("Your stack is already empty.");
-    return;
-  }
+    setStack(
+      stack.filter((item) => item.id !== id)
+    );
 
-  setStack([]);
+    if (technology) {
+      toast.info(`${technology.name} removed from your stack.`);
+    }
+  };
 
-  toast.info(
-    "All technologies removed from your stack."
-  );
-};
+  const handleRemoveAll = () => {
+    if (stack.length === 0) {
+      toast.warning("Your stack is already empty.");
+      return;
+    }
+
+    setStack([]);
+
+    toast.info("All technologies removed from your stack.");
+  };
 
   useEffect(() => {
     fetch("/technologies.json")
@@ -87,10 +78,10 @@ const handleRemoveAll = () => {
 
   return (
     <>
-      <Navbar />
+ <Navbar />
 
-      <main>
-        <Hero />
+<main>
+  <Hero />
 
         <section
           className="technologies-section"
@@ -117,11 +108,19 @@ const handleRemoveAll = () => {
                   <TechnologyCard
                     key={technology.id}
                     technology={technology}
+                    onAdd={handleAddToStack}
+                    isAdded={stack.some(
+                      (item) => item.id === technology.id
+                    )}
                   />
                 ))}
               </div>
 
-              <YourStack stack={stack} />
+              <YourStack
+                stack={stack}
+                onRemove={handleRemoveFromStack}
+                onRemoveAll={handleRemoveAll}
+              />
             </div>
           )}
         </section>
@@ -129,7 +128,7 @@ const handleRemoveAll = () => {
 
       <Footer />
 
-      <ToastContainer />
+      <ToastContainer aria-label="Notifications" />
     </>
   );
 }

@@ -143,8 +143,10 @@ body {
     #ff3d81,
     #7c3aed
   );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
 
 .hero-description {
